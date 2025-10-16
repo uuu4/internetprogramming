@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş | The Library</title>
+    <link rel="stylesheet" href="genel.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="MSB Library Logo">
+            </a>
+            <h1>medeniyetekno Library</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="misyon-vizyon.html">Misyon & Vizyon</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="login.html" class="active">Giriş</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN LOGIN SECTION -->
+    <main class="login-container">
+        <div class="login-card">
+            <h2>🔐 Giriş Yap</h2>
+            <form id="loginForm" action="admin.html" method="post">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" name="username" placeholder="Kullanıcı adınızı giriniz" required>
+
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" placeholder="Şifrenizi giriniz" required>
+
+                <div class="login-options">
+                    <label><input type="checkbox" name="remember"> Beni hatırla</label>
+                    <a href="#">Şifremi unuttum?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Giriş Yap</button>
+            </form>
+
+            <div class="login-options" style="justify-content:center; margin-top: 10px;">
+                <a href="#" id="openCreateAdmin">Yönetici oluştur / içe aktar</a>   
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 The Library | Medeniyet Üniversitesi</p>
+    </footer>
+    
+    <!-- Modal: Create Admin -->
+    <div id="createAdminModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="createAdminTitle">
+            <div class="modal-header">
+                <h3 id="createAdminTitle">Yönetici Oluştur</h3>
+                <button class="modal-close" id="closeCreateAdmin" aria-label="Kapat">×</button>
+            </div>
+            <form id="createAdminForm">
+                <label for="newEmail">E-Posta</label>
+                <input type="email" id="newEmail" placeholder="admin@example.com" required>
+
+                <label for="newPassword">Şifre</label>
+                <input type="password" id="newPassword" placeholder="Güçlü bir şifre" required>
+
+                <label for="newPassword2">Şifre (Tekrar)</label>
+                <input type="password" id="newPassword2" placeholder="Şifre tekrarı" required>
+
+                <button type="submit" class="btn" style="margin-top:10px; width:100%">Yöneticiyi Kaydet</button>
+            </form>
+
+            <div class="form-row" style="margin-top:12px;">
+                <button id="importCreds" class="btn ghost" type="button">Kimlik Dosyası Yükle</button>
+                <button id="exportCreds" class="btn ghost" type="button">Kimlik Dosyası İndir</button>
+                <input type="file" id="credFile" accept="application/json" style="display:none" />
+            </div>
+            <p class="muted" style="margin-top:8px;">Not: Kimlik dosyası yalnızca bu cihazda kullanılmak üzere içe aktarılır.</p>
+        </div>
+    </div>
+    <script>
+    (function(){
+        const LS_ADMIN = 'msb_admin_v1';
+        const SS_SESSION = 'msb_session_v1';
+
+        const $ = (s) => document.querySelector(s);
+
+        async function sha256Hex(str){
+            const data = new TextEncoder().encode(str);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2,'0')).join('');
+        }
+
+        function getAdmin(){
+            try { return JSON.parse(localStorage.getItem(LS_ADMIN) || 'null'); } catch { return null; }
+        }
+        function setAdmin(obj){ localStorage.setItem(LS_ADMIN, JSON.stringify(obj)); }
+
+        function setSession(email, remember){
+            const payload = JSON.stringify({ email, issuedAt: Date.now() });
+            if (remember) localStorage.setItem(SS_SESSION, payload);
+            else sessionStorage.setItem(SS_SESSION, payload);
+        }
+
+        function hasAdmin(){ return !!getAdmin(); }
+
+        function openModal(){
+            const o = $('#createAdminModal');
+            if (!o) return;
+            o.classList.add('open');
+            o.setAttribute('aria-hidden','false');
+            document.body.classList.add('no-scroll');
+        }
+        function closeModal(){
+            const o = $('#createAdminModal');
+            if (!o) return;
+            o.classList.remove('open');
+            o.setAttribute('aria-hidden','true');
+            document.body.classList.remove('no-scroll');
+        }
+
+        // Toggle link
+        const openLink = $('#openCreateAdmin');
+        const closeBtn = $('#closeCreateAdmin');
+        const overlay = $('#createAdminModal');
+        if (openLink){ openLink.addEventListener('click', (e)=>{ e.preventDefault(); openModal(); }); }
+        if (closeBtn){ closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); closeModal(); }); }
+        if (overlay){ overlay.addEventListener('click', (e)=>{ if (e.target === overlay) closeModal(); }); }
+
+        // Login handler
+        const loginForm = $('#loginForm');
+        if (loginForm){
+            loginForm.addEventListener('submit', async (e)=>{
+                e.preventDefault();
+                const email = ($('#username').value || '').trim().toLowerCase();
+                const pass = ($('#password').value || '');
+                const remember = loginForm.querySelector('input[name="remember"]').checked;
+                const admin = getAdmin();
+                if (!admin){
+                    alert('Önce bir yönetici hesabı oluşturun veya kimlik dosyası içe aktarın.');
+                    return;
+                }
+                const hash = await sha256Hex(pass);
+                if (email !== (admin.email||'').toLowerCase() || hash !== admin.passwordHash){
+                    alert('E-posta veya şifre hatalı.');
+                    return;
+                }
+                setSession(admin.email, remember);
+                window.location.href = 'admin.html';
+            });
+        }
+
+        // Create admin
+        const createForm = $('#createAdminForm');
+        if (createForm){
+            createForm.addEventListener('submit', async (e)=>{
+                e.preventDefault();
+                if (hasAdmin()) { alert('Zaten bir yönetici mevcut.'); return; }
+                const email = ($('#newEmail').value || '').trim().toLowerCase();
+                const p1 = $('#newPassword').value || '';
+                const p2 = $('#newPassword2').value || '';
+                if (!email || !p1) { alert('E-posta ve şifre gerekli.'); return; }
+                if (p1 !== p2) { alert('Şifreler eşleşmiyor.'); return; }
+                const passwordHash = await sha256Hex(p1);
+                setAdmin({ email, passwordHash });
+                alert('Yönetici oluşturuldu. Artık giriş yapabilirsiniz.');
+                closeModal();
+            });
+        }
+
+        // Import creds
+        const importBtn = $('#importCreds');
+        const exportBtn = $('#exportCreds');
+        const fileInput = $('#credFile');
+        if (importBtn && fileInput){
+            importBtn.addEventListener('click', ()=> fileInput.click());
+            fileInput.addEventListener('change', ()=>{
+                const f = fileInput.files && fileInput.files[0];
+                if (!f) return;
+                const reader = new FileReader();
+                reader.onload = () => {
+                    try {
+                        const obj = JSON.parse(String(reader.result||'{}'));
+                        if (!obj.email || !obj.passwordHash || typeof obj.email !== 'string' || typeof obj.passwordHash !== 'string'){
+                            alert('Geçersiz kimlik dosyası.');
+                            return;
+                        }
+                        setAdmin({ email: obj.email.toLowerCase(), passwordHash: obj.passwordHash });
+                        alert('Kimlik dosyası içe aktarıldı.');
+                        closeModal();
+                    } catch(err){
+                        alert('Dosya okunamadı: ' + err);
+                    }
+                };
+                reader.readAsText(f);
+                fileInput.value = '';
+            });
+        }
+        if (exportBtn){
+            exportBtn.addEventListener('click', ()=>{
+                const admin = getAdmin();
+                if (!admin){ alert('Dışa aktarılacak yönetici yok.'); return; }
+                const blob = new Blob([JSON.stringify(admin, null, 2)], {type:'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = 'admin.credentials.json'; a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // Init
+        // no-op on load; modal kapalı başlar
+    })();
+    </script>
+</body>
+</html>

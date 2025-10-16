@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Paneli | MSB Library</title>
+  <link rel="stylesheet" href="genel.css" />
+</head>
+<body>
+  
+  <header class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="MSB Library Logo" />
+      <h1>medeniyetekno library</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+        <li><a href="misyon-vizyon.html">Misyon & Vizyon</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+        <li><a href="login.html">Giriş</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- DASHBOARD -->
+  <main class="admin-container">
+    <aside class="admin-sidebar">
+      <div class="admin-profile">
+        <img src="logo.png" alt="admin" />
+        <div>
+          <h3>Admin</h3>
+          <p>msb.admin@univ.edu</p>
+        </div>
+      </div>
+
+      <ul class="admin-menu">
+        <li class="active">Panoya Genel Bakış</li>
+        <li>Kitap Yönetimi</li>
+        <li>Kullanıcılar</li>
+        <li>Duyurular</li>
+        <li>Ayarlar</li>
+      </ul>
+
+      <div class="small-note">
+        <strong>Not:</strong>
+        Bu panel demo amaçlıdır. Gerçek projede sunucu tarafı doğrulama gereklidir.
+      </div>
+    </aside>
+
+    <section class="admin-main">
+      <div class="dashboard-header">
+        <h2>Yönetici Paneli</h2>
+        <div class="header-actions">
+          <button id="exportBtn" class="btn small">CSV Dışa Aktar</button>
+          <button id="clearStorage" class="btn small ghost">Local Verileri Temizle</button>
+          <button id="logoutBtn" class="btn small ghost">Çıkış Yap</button>
+        </div>
+      </div>
+
+      <!-- KARTLAR -->
+      <div class="cards">
+        <div class="card">
+          <h4>Toplam Kitap</h4>
+          <p id="totalBooks">0</p>
+        </div>
+        <div class="card">
+          <h4>Toplam Kullanıcı</h4>
+          <p id="totalUsers">0</p>
+        </div>
+        <div class="card">
+          <h4>Aktif Duyurular</h4>
+          <p id="totalAnnouncements">0</p>
+        </div>
+      </div>
+
+      <!-- Kitap Yönetimi -->
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Kitap Yönetimi</h3>
+          <p class="muted">Yeni kitap ekleyin, düzenleyin veya silin.</p>
+        </div>
+
+        <div class="panel-body two-col">
+          <form id="bookForm" class="panel-form">
+            <h4>Yeni Kitap Ekle</h4>
+            <label>Başlık
+              <input type="text" id="bookTitle" placeholder="Kitap başlığı" required />
+            </label>
+            <label>Yazar
+              <input type="text" id="bookAuthor" placeholder="Yazar adı" required />
+            </label>
+            <label>Yayın Yılı
+              <input type="number" id="bookYear" placeholder="2024" min="1000" max="2100" />
+            </label>
+            <label>Kategori
+              <input type="text" id="bookCategory" placeholder="Kategori (örn. Bilgisayar)" />
+            </label>
+            <div class="form-row">
+              <button type="submit" class="btn">Ekle</button>
+              <button type="button" id="importSample" class="btn ghost">Örnek Ekle</button>
+            </div>
+          </form>
+
+          <div class="table-wrap">
+            <h4>Kitap Listesi</h4>
+            <input id="bookSearch" placeholder="Kitap ara..." />
+            <table id="booksTable" class="table">
+              <thead>
+                <tr><th>Başlık</th><th>Yazar</th><th>Yıl</th><th>Kategori</th><th>İşlemler</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kullanıcı Yönetimi -->
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Kullanıcılar</h3>
+          <p class="muted">Kayıtlı kullanıcıları görüntüleyin ve yönetim notları ekleyin.</p>
+        </div>
+
+        <div class="panel-body">
+          <div class="users-controls">
+            <input id="userSearch" placeholder="Kullanıcı ara (isim veya eposta)" />
+            <button id="addSampleUsers" class="btn ghost">Örnek Kullanıcı Ekle</button>
+          </div>
+
+          <table id="usersTable" class="table">
+            <thead>
+              <tr><th>Ad</th><th>E-Posta</th><th>Rol</th><th>İşlemler</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Duyurular -->
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Duyurular</h3>
+          <p class="muted">Yeni duyuru ekleyin, düzenleyin veya yayınlayın.</p>
+        </div>
+
+        <div class="panel-body two-col">
+          <form id="announceForm" class="panel-form">
+            <h4>Yeni Duyuru</h4>
+            <label>Başlık
+              <input type="text" id="annTitle" placeholder="Duyuru başlığı" required />
+            </label>
+            <label>İçerik
+              <textarea id="annContent" rows="5" placeholder="Duyuru metni..." required></textarea>
+            </label>
+            <div class="form-row">
+              <button type="submit" class="btn">Yayınla</button>
+            </div>
+          </form>
+
+          <div class="ann-list">
+            <h4>Mevcut Duyurular</h4>
+            <ul id="announcements"></ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 medeniyetekno Library | İstanbul Medeniyet Üniversitesi</p>
+  </footer>
+
+  <!-- SCRIPT: basit frontend işlevleri (localStorage destekli) -->
+  <script>
+    /* Auth sabitleri ve guard */
+    const LS_ADMIN = 'msb_admin_v1';
+    const SS_SESSION = 'msb_session_v1';
+    (function authGuard(){
+      const adminRaw = localStorage.getItem(LS_ADMIN);
+      const sessRaw = sessionStorage.getItem(SS_SESSION) || localStorage.getItem(SS_SESSION);
+      if (!adminRaw || !sessRaw) { window.location.href = 'login.html'; return; }
+      try {
+        const admin = JSON.parse(adminRaw);
+        const sess = JSON.parse(sessRaw);
+        if (!admin?.email || !sess?.email || (admin.email+'').toLowerCase() !== (sess.email+'').toLowerCase()){
+          sessionStorage.removeItem(SS_SESSION); localStorage.removeItem(SS_SESSION);
+          window.location.href = 'login.html';
+        }
+      } catch {
+        window.location.href = 'login.html';
+      }
+    })();
+
+    /* Yardımcılar */
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
+
+    /* Veri yapıları localStorage anahtarları */
+    const LS_BOOKS = 'msb_books_v1';
+    const LS_USERS = 'msb_users_v1';
+    const LS_ANN = 'msb_ann_v1';
+
+    /* Başlangıç: localStorage'tan yükle veya boş dizi */
+    const load = (k) => JSON.parse(localStorage.getItem(k) || '[]');
+    const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+
+    let books = load(LS_BOOKS);
+    let users = load(LS_USERS);
+    let anns = load(LS_ANN);
+
+    /* DOM referansları */
+    const booksTbody = $('#booksTable tbody');
+    const usersTbody = $('#usersTable tbody');
+    const annList = $('#announcements');
+    const totalBooksEl = $('#totalBooks');
+    const totalUsersEl = $('#totalUsers');
+    const totalAnnEl = $('#totalAnnouncements');
+
+    /* Profil e-postasını göster ve çıkış bağla */
+    (function hydrateAdminUi(){
+      try {
+        const admin = JSON.parse(localStorage.getItem(LS_ADMIN) || 'null');
+        if (admin?.email) {
+          const emailEl = document.querySelector('.admin-profile p');
+          if (emailEl) emailEl.textContent = admin.email;
+        }
+      } catch {}
+      const logoutBtn = $('#logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', ()=>{
+          sessionStorage.removeItem(SS_SESSION);
+          localStorage.removeItem(SS_SESSION);
+          window.location.href = 'login.html';
+        });
+      }
+    })();
+
+    /* RENDER fonksiyonları */
+    function renderBooks(filter = '') {
+      booksTbody.innerHTML = '';
+      const filtered = books.filter(b =>
+        (b.title + ' ' + b.author + ' ' + (b.category||'')).toLowerCase().includes(filter.toLowerCase())
+      );
+      filtered.forEach((b, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(b.title)}</td>
+          <td>${escapeHtml(b.author)}</td>
+          <td>${escapeHtml(b.year||'—')}</td>
+          <td>${escapeHtml(b.category||'—')}</td>
+          <td class="ops">
+            <button data-i="${i}" class="btn ghost small edit-book">Düzenle</button>
+            <button data-i="${i}" class="btn danger small del-book">Sil</button>
+          </td>
+        `;
+        booksTbody.appendChild(tr);
+      });
+      totalBooksEl.textContent = books.length;
+    }
+
+    function renderUsers(filter='') {
+      usersTbody.innerHTML = '';
+      const filtered = users.filter(u =>
+        (u.name + ' ' + u.email).toLowerCase().includes(filter.toLowerCase())
+      );
+      filtered.forEach((u,i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(u.name)}</td>
+          <td>${escapeHtml(u.email)}</td>
+          <td>${escapeHtml(u.role||'Öğrenci')}</td>
+          <td class="ops">
+            <button data-i="${i}" class="btn ghost small del-user">Sil</button>
+          </td>
+        `;
+        usersTbody.appendChild(tr);
+      });
+      totalUsersEl.textContent = users.length;
+    }
+
+    function renderAnns() {
+      annList.innerHTML = '';
+      anns.forEach((a,i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${escapeHtml(a.title)}</strong>
+          <p>${escapeHtml(a.content)}</p>
+          <div class="ann-ops">
+            <button data-i="${i}" class="btn ghost small del-ann">Sil</button>
+          </div>`;
+        annList.appendChild(li);
+      });
+      totalAnnEl.textContent = anns.length;
+    }
+
+    function escapeHtml(s) {
+      if (!s) return '';
+      return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    }
+
+    /* FORM işlemleri */
+    $('#bookForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const t = $('#bookTitle').value.trim();
+      const a = $('#bookAuthor').value.trim();
+      const y = $('#bookYear').value.trim();
+      const c = $('#bookCategory').value.trim();
+      if (!t || !a) return alert('Başlık ve yazar alanları gerekli.');
+      books.unshift({ title: t, author: a, year: y, category: c });
+      save(LS_BOOKS, books);
+      renderBooks($('#bookSearch').value);
+      e.target.reset();
+    });
+
+    $('#importSample').addEventListener('click', () => {
+      books.unshift(
+        {title:'Algoritmalar ve Veri Yapıları', author:'A. Yazar', year:'2020', category:'Bilgisayar'},
+        {title:'İleri Programlama', author:'B. Yazar', year:'2019', category:'Bilgisayar'}
+      );
+      save(LS_BOOKS, books);
+      renderBooks();
+    });
+
+    $('#bookSearch').addEventListener('input', (e)=> renderBooks(e.target.value));
+
+    booksTbody.addEventListener('click', (ev) => {
+      if (ev.target.matches('.del-book')) {
+        const i = Number(ev.target.dataset.i);
+        if (!confirm('Bu kitabı silmek istediğinize emin misiniz?')) return;
+        books.splice(i,1);
+        save(LS_BOOKS, books);
+        renderBooks($('#bookSearch').value);
+      }
+      if (ev.target.matches('.edit-book')) {
+        const i = Number(ev.target.dataset.i);
+        const b = books[i];
+        const newTitle = prompt('Yeni başlık:', b.title);
+        if (newTitle !== null) {
+          b.title = newTitle.trim() || b.title;
+          save(LS_BOOKS, books);
+          renderBooks();
+        }
+      }
+    });
+
+    /* KULLANICI işlemleri (örnek ekleme/seçme) */
+    $('#addSampleUsers').addEventListener('click', () => {
+      users.unshift(
+        {name:'Ayşe Yılmaz', email:'ayse.y@univ.edu', role:'Öğrenci'},
+        {name:'Dr. Mehmet Kara', email:'mehmet.k@univ.edu', role:'Akademisyen'}
+      );
+      save(LS_USERS, users);
+      renderUsers();
+    });
+
+    $('#userSearch').addEventListener('input', (e) => renderUsers(e.target.value));
+    usersTbody.addEventListener('click', (ev) => {
+      if (ev.target.matches('.del-user')) {
+        const i = Number(ev.target.dataset.i);
+        if (!confirm('Bu kullanıcıyı silmek ister misiniz?')) return;
+        users.splice(i,1);
+        save(LS_USERS, users);
+        renderUsers($('#userSearch').value);
+      }
+    });
+
+    /* DUYURU işlemleri */
+    $('#announceForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const t = $('#annTitle').value.trim();
+      const c = $('#annContent').value.trim();
+      if (!t || !c) return alert('Başlık ve içerik gerekli.');
+      anns.unshift({title:t, content:c, date: new Date().toISOString()});
+      save(LS_ANN, anns);
+      renderAnns();
+      e.target.reset();
+    });
+
+    annList.addEventListener('click', (ev) => {
+      if (ev.target.matches('.del-ann')) {
+        const i = Number(ev.target.dataset.i);
+        if (!confirm('Duyuruyu silmek istiyor musunuz?')) return;
+        anns.splice(i,1);
+        save(LS_ANN, anns);
+        renderAnns();
+      }
+    });
+
+    /* Export CSV (kitaplar) */
+    $('#exportBtn').addEventListener('click', () => {
+      if (!books.length) return alert('Dışa aktarılacak kitap yok.');
+      const rows = [['Başlık','Yazar','Yıl','Kategori'], ...books.map(b => [b.title,b.author,b.year||'','' + (b.category||'')])];
+      const csv = rows.map(r => r.map(cell => `"${(cell+'').replaceAll('"','""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'msb_books.csv'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    /* Temizleme (localStorage) */
+    $('#clearStorage').addEventListener('click', () => {
+      if (!confirm('Local verileri tamamen temizlemek istiyor musunuz?')) return;
+      localStorage.removeItem(LS_BOOKS); localStorage.removeItem(LS_USERS); localStorage.removeItem(LS_ANN);
+      books = []; users = []; anns = [];
+      renderBooks(); renderUsers(); renderAnns();
+    });
+
+    /* Helper: başlangıç render ve örnek veriler yoksa göster */
+    function init() {
+      renderBooks();
+      renderUsers();
+      renderAnns();
+
+      // Eğer hiç kullanıcı yoksa ufak bir örnek göster (kullanıcı sayısını daha anlamlı yapmak için)
+      if (!users.length) {
+        users = [
+          {name:'Sistem Yöneticisi', email:'admin@msb.edu', role:'Admin'}
+        ];
+        save(LS_USERS, users);
+        renderUsers();
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
