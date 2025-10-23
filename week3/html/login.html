@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş | MSB Library</title>
+    <link rel="stylesheet" href="genel.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="MSB Library Logo">
+            </a>
+            <h1>MSB Library</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="misyon-vizyon.html">Misyon & Vizyon</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="login.html" class="active">Giriş</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="login-container">
+        <div class="login-card">
+            <h2>🔐 Giriş Yap</h2>
+            <form action="login_process.php" method="post">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" name="username" placeholder="Kullanıcı adınızı giriniz" required>
+
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" placeholder="Şifrenizi giriniz" required>
+
+                <div class="login-options">
+                    <label><input type="checkbox" name="remember"> Beni hatırla</label>
+                    <a href="#">Şifremi unuttum?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Giriş Yap</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 MSB Library | Medeniyet Üniversitesi</p>
+    </footer>
+</body>
+</html>
