@@ -4,7 +4,7 @@
  * * Bu betik, PHP Data Objects (PDO) eklentisini kullanarak 
  * MySQL veritabanına güvenli bir bağlantı oluşturur.
  * Bu dosya, projenizdeki diğer PHP dosyaları tarafından 'require_once' 
- * ile çağrılmak üzere tasarlanmıştır.
+ * ile çağrılmak üzere tasarlanmıştır..
  */
 
 // 1. Veritabanı Bağlantı Bilgileri
