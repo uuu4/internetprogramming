@@ -1,4 +1,4 @@
-/* GENEL AYARLAR */
+/* GEENEL AYARLAR */
 * {
   margin: 0;
   padding: 0;
@@ -510,4 +510,5 @@ button.btn:hover {
 .btn.small { padding:6px 10px; font-size:0.9rem; border-radius:8px; }
 .btn.ghost { background:transparent; color:#003049; border:1px solid #d7eaf8; box-shadow:none; }
 .btn.danger { background:#ff5c5c; color:white; }
+
 
