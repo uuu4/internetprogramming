@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol | MSB Library</title>
+    <link rel="stylesheet" href="genel.css">
+    <style>
+        /* login.html'deki gibi özel stilleri koru */
+        .login-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="MSB Library Logo">
+            </a>
+            <h1>MSB Library</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="misyon-vizyon.html">Misyon & Vizyon</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="login.html">Giriş</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="login-container">
+        <div class="login-card">
+            <h2>📝 Yeni Hesap Oluştur</h2>
+            
+            <form action="register_process.php" method="post">
+                <label for="name">Ad Soyad</label>
+                <input type="text" id="name" name="name" placeholder="Adınızı ve soyadınızı giriniz" required>
+                
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" name="username" placeholder="Sisteme giriş için kullanıcı adınız" required>
+
+                <label for="email">E-Posta</label>
+                <input type="email" id="email" name="email" placeholder="E-posta adresiniz" required>
+
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" placeholder="Şifrenizi belirleyin" required>
+
+                <div style="margin: 15px 0;"></div> 
+
+                <div class="login-btn-group">
+                    <button type="submit" class="login-btn">Hesap Oluştur</button>
+                    <a href="login.html" class="login-btn register-btn" style="background-color: #ccc; color: #333; text-align: center;">Giriş Sayfasına Dön</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 MSB Library | Medeniyet Üniversitesi</p>
+    </footer>
+</body>
+</html>

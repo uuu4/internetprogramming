@@ -1,0 +1,513 @@
+/* GENEL AYARLAR */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 60px;
+  background-color: #001f3f;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.logo h1 {
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #00bfff;
+}
+
+/* HERO SECTION */
+.hero-section {
+  height: 75vh;
+  background: linear-gradient(rgba(0,31,63,0.7), rgba(0,31,63,0.7)), #001f3f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.btn {
+  background-color: #00bfff;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #009acd;
+}
+
+/* FEATURES */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 10%;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+}
+
+.feature-card h3 {
+  color: #001f3f;
+  margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+  background-color: #001f3f;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+  margin-top: 50px;
+}
+
+/* RESPONSIVE TASARIM */
+@media(max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* HAKKIMIZDA SAYFASI */
+.page-content {
+  padding: 60px 10%;
+}
+
+.about-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.about-section h2 {
+  color: #001f3f;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #444;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+.about-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.about-card {
+  background: white;
+  width: 300px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+}
+
+.about-card h3 {
+  color: #001f3f;
+  margin-bottom: 10px;
+}
+
+/* MİSYON & VİZYON SAYFASI */
+.mission-vision-section {
+  text-align: center;
+  padding: 60px 10%;
+}
+
+.mission-vision-section h2 {
+  font-size: 2rem;
+  color: #001f3f;
+  margin-bottom: 20px;
+}
+
+.intro-text {
+  color: #444;
+  font-size: 1.05rem;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.6;
+}
+
+.mv-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.mv-card {
+  background: white;
+  width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.mv-card:hover {
+  transform: translateY(-8px);
+}
+
+.mv-card h3 {
+  color: #001f3f;
+  margin-bottom: 15px;
+}
+
+.mv-card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.mission {
+  border-top: 6px solid #00bfff;
+}
+
+.vision {
+  border-top: 6px solid #009acd;
+}
+
+/* İLETİŞİM SAYFASI */
+.contact-section {
+  text-align: center;
+  padding: 60px 10%;
+}
+
+.contact-section h2 {
+  color: #001f3f;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.contact-form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 400px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #001f3f;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.contact-info {
+  max-width: 350px;
+  text-align: left;
+}
+
+.contact-info h3 {
+  color: #001f3f;
+  margin-top: 20px;
+}
+
+.contact-info a {
+  color: #00bfff;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Form butonları */
+button.btn {
+  background-color: #00bfff;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button.btn:hover {
+  background-color: #009acd;
+}
+
+/* Login Sayfası */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
+}
+
+.login-card {
+    width: 350px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.login-card h2 {
+    margin-bottom: 25px;
+    color: #0a3d62;
+}
+
+.login-card label {
+    display: block;
+    text-align: left;
+    margin-top: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.login-card input:focus {
+    border-color: #0a3d62;
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    font-size: 0.9rem;
+}
+
+.login-options a {
+    color: #0a3d62;
+    text-decoration: none;
+}
+
+.login-options a:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    background-color: #0a3d62;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #07416e;
+}
+
+/* ---------- ADMIN PANEL STYLES ---------- */
+
+.admin-container {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  height: fit-content;
+}
+
+.admin-profile {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.admin-profile img { width:56px; height:56px; border-radius:8px; object-fit:cover; }
+.admin-profile h3 { margin:0; font-size:1.05rem; color:#001f3f; }
+.admin-profile p { margin:0; font-size:0.85rem; color:#666; }
+
+.admin-menu { list-style:none; padding:0; margin-top:12px; }
+.admin-menu li { padding:12px 10px; border-radius:8px; cursor:pointer; color:#003049; margin-bottom:6px; font-weight:600; }
+.admin-menu li.active, .admin-menu li:hover { background:#f1f9ff; color:#001f3f; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+
+.small-note { margin-top:18px; font-size:0.85rem; color:#666; background:#fbfbfd; padding:12px; border-radius:8px; }
+
+/* Main content */
+.admin-main { flex:1; }
+
+.dashboard-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
+.header-actions { display:flex; gap:8px; align-items:center; }
+
+.cards { display:flex; gap:18px; margin-bottom:20px; flex-wrap:wrap; }
+.card { background:white; padding:18px; border-radius:12px; width:160px; box-shadow:0 8px 20px rgba(0,0,0,0.05); text-align:center; }
+.card h4 { margin-bottom:8px; color:#001f3f; }
+.card p { font-size:1.4rem; font-weight:700; color:#0a3d62; }
+
+/* Panels */
+.panel { background:white; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.05); padding:18px; margin-bottom:20px; }
+.panel-header h3 { margin:0 0 6px 0; color:#001f3f; }
+.panel-header .muted { color:#666; margin:0 0 10px 0; }
+
+.two-col { display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:start; }
+.panel-form { display:flex; flex-direction:column; gap:10px; }
+.panel-form label { font-weight:600; color:#003049; font-size:0.95rem; }
+.panel-form input, .panel-form textarea { padding:10px; border-radius:8px; border:1px solid #ddd; font-size:0.95rem; }
+
+/* tables */
+.table-wrap { overflow:auto; }
+.table { width:100%; border-collapse:collapse; margin-top:8px; }
+.table thead th { text-align:left; font-size:0.9rem; padding:8px 6px; color:#003049; }
+.table tbody td { padding:10px 6px; border-top:1px solid #f1f1f1; font-size:0.95rem; vertical-align:middle; }
+.table input { width:100%; padding:8px; border-radius:8px; border:1px solid #eee; margin-bottom:8px; }
+
+/* users */
+.users-controls { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+.users-controls input { flex:1; padding:10px; border-radius:8px; border:1px solid #ddd; }
+
+/* announcements */
+.ann-list ul, #announcements { list-style:none; padding:0; margin:0; }
+#announcements li { background:#fbfbff; padding:12px; border-radius:8px; margin-bottom:10px; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
+.ann-ops { margin-top:8px; }
+
+/* small helpers */
+.ops { display:flex; gap:8px; }
+.form-row { display:flex; gap:8px; margin-top:8px; }
+.muted { color:#666; font-size:0.95rem; }
+
+/* responsive */
+@media(max-width:1000px) {
+  .admin-container { flex-direction:column; padding:18px; }
+  .admin-sidebar { width:100%; order:2; }
+  .admin-main { order:1; }
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* Buttons (küçük eklenti, eğer zaten varsayıyorsan çakışma olabilir) */
+.btn {
+  background:#00bfff; color:white; padding:8px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700;
+}
+.btn.small { padding:6px 10px; font-size:0.9rem; border-radius:8px; }
+.btn.ghost { background:transparent; color:#003049; border:1px solid #d7eaf8; box-shadow:none; }
+.btn.danger { background:#ff5c5c; color:white; }
+

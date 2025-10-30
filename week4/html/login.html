@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş | MSB Library</title>
+    <link rel="stylesheet" href="genel.css">
+    <style>
+        /* login.html dosyasında tanımlanan özel stilleri koru */
+        .login-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .register-btn {
+            background-color: #00bfff; 
+        }
+        /* KALDIRILAN login-options ALANININ BOŞLUĞU DÜZELTİLDİ */
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="MSB Library Logo">
+            </a>
+            <h1>MSB Library</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="misyon-vizyon.html">Misyon & Vizyon</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+                <li><a href="login.html" class="active">Giriş</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="login-container">
+        <div class="login-card">
+            <h2>🔐 Giriş Yap</h2>
+            
+            <form action="login_process.php" method="post">
+                <label for="username">Kullanıcı Adı veya E-Posta</label>
+                <input type="text" id="username" name="username" placeholder="Kullanıcı adınızı/E-postanızı giriniz" required>
+
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" placeholder="Şifrenizi giriniz" required>
+
+                <div style="margin: 15px 0;"></div> 
+
+                <div class="login-btn-group">
+                    <button type="submit" class="login-btn">Giriş Yap</button>
+                    <a href="register.html" class="login-btn register-btn" style="text-align: center;">Kayıt Ol</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 MSB Library | Medeniyet Üniversitesi</p>
+    </footer>
+</body>
+</html>
