@@ -12,7 +12,7 @@ $userName = $_SESSION['name'] ?? 'Admin';
 $current_action = 'add'; // Varsayılan: Kitap Ekleme modu
 $edit_book = null; // Düzenlenecek kitap verisi
 
-// --- PHP İşlem Mantığı ---
+// --- PHP İşlem Mantığı --
 
 $message = ''; // Kullanıcıya gösterilecek mesaj
 
